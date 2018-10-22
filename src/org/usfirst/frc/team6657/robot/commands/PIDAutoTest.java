@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-package org.usfirst.frc.team6657.robot.commands;
-
-import org.usfirst.frc.team6657.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
-
-public class PIDAutoTest extends Command {
-
-	@Override
-	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return Robot.driveTrain.onTarget();
-	}
-	
-	public PIDAutoTest() {
-		requires(Robot.driveTrain);
-	}
-	
-	@Override
-	public void initialize() {
-		Robot.driveTrain.reset();
-		Robot.driveTrain.setSetpoint(60);
-		
-	}
-	
-	@Override
-	public void execute() {
-		Robot.driveTrain.enable();
-	}
-=======
 package org.usfirst.frc.team6657.robot.commands;
 
 import org.usfirst.frc.team6657.robot.Robot;
@@ -58,5 +27,4 @@ public class PIDAutoTest extends Command {
 	public void execute() {
 		Robot.driveTrain.enable();
 	}
->>>>>>> c7dd9f53bd14ee5974b81f82ee272e5d55b86f2b
 }
