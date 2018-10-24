@@ -8,10 +8,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team6657.robot.commands.AutoPassBaseline;
+import org.usfirst.frc.team6657.robot.commands.BaseDriveTimed;
 import org.usfirst.frc.team6657.robot.commands.AutoSwitch;
-import org.usfirst.frc.team6657.robot.commands.AutoSwitchMadtown;
-import org.usfirst.frc.team6657.robot.commands.PIDAutoTest;
 import org.usfirst.frc.team6657.robot.subsystems.Claw;
 import org.usfirst.frc.team6657.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6657.robot.subsystems.LadderWinch;
@@ -37,9 +35,8 @@ public class Robot extends IterativeRobot {
 	
 	SendableChooser<Double> driveChooser = new SendableChooser<>();
 	
-	AutoPassBaseline baselineAuto;
+	BaseDriveTimed baselineAuto;
 	AutoSwitch switchAuto;
-	PIDAutoTest PIDAuto;
 
 	@Override
 	public void robotInit() {
@@ -51,12 +48,11 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI(DriverStation.getInstance().getJoystickIsXbox(RobotMap.driveControllerID));
 		
-		baselineAuto = new AutoPassBaseline(2.5);
+		baselineAuto = new BaseDriveTimed(2.5, 0.5);
 		switchAuto = new AutoSwitch();
 		
 		chooser.addDefault("Baseline", baselineAuto);
 		chooser.addObject("Conditional Switch Cube", switchAuto);
-		chooser.addObject("PID", PIDAuto);
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		driveChooser.addDefault("100%", 1.0d);
@@ -90,9 +86,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		PIDAuto = new PIDAutoTest();
-		autonomousCommand = PIDAuto;
-		
+		// FINISH ME!
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 	}
@@ -106,7 +100,6 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
 	}
 
 	@Override

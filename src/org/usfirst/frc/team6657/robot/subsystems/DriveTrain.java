@@ -8,9 +8,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-public class DriveTrain extends PIDSubsystem  {
+public class DriveTrain extends Subsystem {
 
 	private WPI_TalonSRX motorFrontLeft = new WPI_TalonSRX(RobotMap.motorFrontLeftID);
 	private WPI_TalonSRX motorBackLeft = new WPI_TalonSRX(RobotMap.motorBackLeftID);
@@ -22,7 +23,7 @@ public class DriveTrain extends PIDSubsystem  {
 	
 	private Encoder encoderLeft = new Encoder(0, 1, true, Encoder.EncodingType.k2X);
 	private Encoder encoderRight = new Encoder(2, 3, false, Encoder.EncodingType.k2X);
-	// private ADXRS450_Gyro gyro;
+	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	private static double distancePerRevolution = 15.2 * Math.PI;
 	private static double pulsesPerRevolution = 1440;
 	private static double distancePerPulse = distancePerRevolution / pulsesPerRevolution;
@@ -31,19 +32,7 @@ public class DriveTrain extends PIDSubsystem  {
 	
 	private double driveMax = 1.0d;
 	
-	public DriveTrain() {
-		super("DriveTrain", 2.0, 0.0, 0.0);
-		setAbsoluteTolerance(0.05);
-		setOutputRange(-0.5, 0.5);
-		getPIDController().setContinuous(false);
-		
-		/*try {
-			gyro = new ADXRS450_Gyro();
-		}catch(Exception e) {
-			System.out.println("No gyro detected!");
-			gyro = null;
-		}*/
-		
+	public DriveTrain() {		
 		encoderLeft.setDistancePerPulse(distancePerPulse);
 		encoderRight.setDistancePerPulse(distancePerPulse);
 		
@@ -56,6 +45,7 @@ public class DriveTrain extends PIDSubsystem  {
 		drive = new DifferentialDrive(motorFrontLeft, motorFrontRight);
 		
 		reset();
+		gyroCalibrate();
 	}
 
 	@Override
@@ -75,7 +65,7 @@ public class DriveTrain extends PIDSubsystem  {
 	public void reset() {
 		encoderLeft.reset();
 		encoderRight.reset();
-		// if(gyro != null) gyro.reset();
+		gyro.reset();
 	}
 	
 	public void drive(double left, double right) {
@@ -95,28 +85,15 @@ public class DriveTrain extends PIDSubsystem  {
 	}
 	
 	public double getAngle() {
-		// if(gyro != null) return gyro.getAngle();
-		return 0.0;
+		return gyro.getAngle();
 	}
 	
 	public void gyroCalibrate() {
-		// if(gyro != null) gyro.calibrate();
+		gyro.calibrate();
 	}
 	
 	public void stop() {
 		drive.tankDrive(0, 0);
 		reset();
-	}
-
-	@Override
-	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return getDistance();
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
-		drive.tankDrive(output, output);
 	}
 }
