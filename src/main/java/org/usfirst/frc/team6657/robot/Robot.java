@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6657.robot.commands.BaseDriveTimed;
 import org.usfirst.frc.team6657.robot.commands.AutoSwitch;
+import org.usfirst.frc.team6657.robot.commands.ControllerRefresh;
 import org.usfirst.frc.team6657.robot.subsystems.Claw;
 import org.usfirst.frc.team6657.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6657.robot.subsystems.LadderWinch;
@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(ladderWinch);
 		claw = new Claw();
 		
-		oi = new OI(DriverStation.getInstance().getJoystickIsXbox(RobotMap.driveControllerID));
+		oi = new OI();
 		
 		baselineAuto = new BaseDriveTimed(2.5, 0.5);
 		switchAuto = new AutoSwitch();
@@ -60,6 +60,8 @@ public class Robot extends IterativeRobot {
 		driveChooser.addObject("50%", 0.5d);
 		driveChooser.addObject("Grandma Speed", 0.3d);
 		SmartDashboard.putData("Motor Power", driveChooser);
+
+		SmartDashboard.putData("Refresh Controller", new ControllerRefresh());
 		
 		driveTrain.reset();
 		driveTrain.gyroCalibrate();
@@ -106,10 +108,5 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		driveTrain.setMax((double) driveChooser.getSelected());
-	}
-
-	@Override
-	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }

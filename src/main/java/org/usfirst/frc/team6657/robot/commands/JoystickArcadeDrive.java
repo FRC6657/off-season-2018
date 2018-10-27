@@ -2,7 +2,6 @@ package org.usfirst.frc.team6657.robot.commands;
 
 import org.usfirst.frc.team6657.robot.Robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class JoystickArcadeDrive extends Command {
@@ -13,10 +12,10 @@ public class JoystickArcadeDrive extends Command {
 	
 	@Override
 	protected void execute() {
-		if (Robot.oi.getControllerType() == GenericHID.HIDType.kHIDJoystick) 
-			Robot.driveTrain.arcadeDrive(Robot.oi.getArcadeSpeed(), Robot.oi.getArcadeRoationThrottle());
-		else 
+		if (Robot.oi.isXbox())
 			Robot.driveTrain.drive(Robot.oi.getControllerLeftSpeed(), Robot.oi.getControllerRightSpeed());
+		else
+			Robot.driveTrain.arcadeDrive(Robot.oi.getArcadeSpeed(), Robot.oi.getArcadeRoationThrottle());		
 	}
 	
 	@Override
