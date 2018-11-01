@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6657.robot.commands.BaseDriveTimed;
 import org.usfirst.frc.team6657.robot.commands.AutoSwitch;
-import org.usfirst.frc.team6657.robot.commands.ControllerRefresh;
 import org.usfirst.frc.team6657.robot.subsystems.Claw;
 import org.usfirst.frc.team6657.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6657.robot.subsystems.LadderWinch;
@@ -60,8 +59,6 @@ public class Robot extends IterativeRobot {
 		driveChooser.addObject("50%", 0.5d);
 		driveChooser.addObject("Grandma Speed", 0.3d);
 		SmartDashboard.putData("Motor Power", driveChooser);
-
-		SmartDashboard.putData("Refresh Controller", new ControllerRefresh());
 		
 		driveTrain.reset();
 		driveTrain.gyroCalibrate();
