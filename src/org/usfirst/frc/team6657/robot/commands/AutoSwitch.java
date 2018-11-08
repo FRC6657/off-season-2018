@@ -5,8 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoSwitch extends CommandGroup {
 	
-	public AutoSwitch(/*String gameData*/) {
-		addSequential(new BaseDriveTimed(5, 0.5));
+	public AutoSwitch() {
+		setName("someconstantthatsidentifiable");
+		addSequential(new BaseDriveStraight(340));
 		/*if(gameData != "") {
 			gameData = gameData.substring(0, 1);
 			int pos = DriverStation.getInstance().getLocation();

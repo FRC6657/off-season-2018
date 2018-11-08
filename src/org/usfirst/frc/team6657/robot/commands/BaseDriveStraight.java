@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class BaseDriveStraight extends PIDCommand {
 	
 	public BaseDriveStraight(double distance) {
-		super(2.0, 0.0, 0.0);
+		super(0.5, 0.0, 0.0);
 		
 		requires(Robot.driveTrain);
 		

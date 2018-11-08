@@ -4,11 +4,14 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6657.robot.commands.BaseDriveTimed;
 import org.usfirst.frc.team6657.robot.commands.AutoSwitch;
+import org.usfirst.frc.team6657.robot.commands.AutoSwitchTimed;
+import org.usfirst.frc.team6657.robot.commands.BaseDriveStraight;
 import org.usfirst.frc.team6657.robot.subsystems.Claw;
 import org.usfirst.frc.team6657.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6657.robot.subsystems.LadderWinch;
@@ -34,8 +37,10 @@ public class Robot extends IterativeRobot {
 	
 	SendableChooser<Double> driveChooser = new SendableChooser<>();
 	
-	BaseDriveTimed baselineAuto;
+	BaseDriveTimed baseDriveTimed;
 	AutoSwitch switchAuto;
+	BaseDriveStraight baseDriveStraight;
+	AutoSwitchTimed switchAutoTimed;
 
 	@Override
 	public void robotInit() {
@@ -45,13 +50,17 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(ladderWinch);
 		claw = new Claw();
 		
-		oi = new OI();
+		oi = new OI(DriverStation.getInstance().getJoystickIsXbox(RobotMap.driveControllerID));
 		
-		baselineAuto = new BaseDriveTimed(2.5, 0.5);
+		baseDriveTimed = new BaseDriveTimed(5, 0.5);
 		switchAuto = new AutoSwitch();
+		baseDriveStraight = new BaseDriveStraight(20);
+		switchAutoTimed = new AutoSwitchTimed();
 		
-		chooser.addDefault("Baseline", baselineAuto);
+		chooser.addDefault("BaseDriveTimed", baseDriveTimed);
 		chooser.addObject("Conditional Switch Cube", switchAuto);
+		chooser.addObject("BaseDriveStraight", baseDriveStraight);
+		chooser.addObject("AutoSwitchTimed", switchAutoTimed);
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		driveChooser.addDefault("100%", 1.0d);
@@ -85,7 +94,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		// FINISH ME!
+		autonomousCommand = chooser.getSelected();
+		if (chooser.getSelected().getName() == "someconstantthatsidentifiable") {
+			((AutoSwitch) autonomousCommand).setGameData(gameData);
+		} else if (chooser.getSelected().getName() == "someconstantthatsidentifiableTIMED") {
+			((AutoSwitchTimed) autonomousCommand).setGameData(gameData);
+		}
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 	}
@@ -105,5 +119,10 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		driveTrain.setMax((double) driveChooser.getSelected());
+	}
+
+	@Override
+	public void testPeriodic() {
+		LiveWindow.run();
 	}
 }

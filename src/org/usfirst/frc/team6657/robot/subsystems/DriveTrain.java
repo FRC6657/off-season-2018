@@ -32,8 +32,7 @@ public class DriveTrain extends Subsystem {
 	
 	private double driveMax = 1.0d;
 	
-	public DriveTrain() {
-
+	public DriveTrain() {		
 		encoderLeft.setDistancePerPulse(distancePerPulse);
 		encoderRight.setDistancePerPulse(distancePerPulse);
 		
