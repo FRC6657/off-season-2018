@@ -24,14 +24,14 @@ public class OI {
 	public Button clawClose;
 	
 	public OI(boolean IsXbox) {
-		if (IsXbox) {
+		if (IsXbox) { //Code below gives names to the controller buttons
 			controller = new XboxController(RobotMap.driveControllerID);
 			ladderUp = new JoystickButton(controller, 1);
 			ladderDown = new JoystickButton(controller, 2);
 			clawOpen = new JoystickButton(controller, 3);
 			clawClose = new JoystickButton(controller, 4);
 		}
-		else {
+		else {       //Code below gives names to the controller buttons
 			controller = new Joystick(RobotMap.driveControllerID);
 			ladderUp = new JoystickButton(controller, 1);
 			ladderDown = new JoystickButton(controller, 2);

@@ -56,8 +56,8 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("BaseDriveTimed", baseDriveTimed);
 		chooser.addObject("AutoSwitchTimed", switchAutoTimed);
 		SmartDashboard.putData("Auto mode", chooser);
-		
-		driveChooser.addDefault("100%", 1.0d);
+		//Adds speed options to the smart dashboard
+		driveChooser.addDefault("HYPER SPEED", 1.0d);
 		driveChooser.addDefault("60%", 0.6d);
 		driveChooser.addObject("50%", 0.5d);
 		driveChooser.addObject("Grandma Speed", 0.3d);
@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
 		driveTrain.reset();
 		driveTrain.gyroCalibrate();
 	}
-	
+	//Code below adds telemetry data to smartdashboard
 	@Override
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Distance", driveTrain.getDistance());

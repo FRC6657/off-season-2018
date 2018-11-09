@@ -18,5 +18,5 @@ public class RobotMap { //Adds all the IDs and integers for the rest of the code
 	public static double joystickArcadeRotationModifier = 1.0;
 	
 	public static double ladderWinchSpeed = 1;
-	public static double clawSpeed = 0.5;
+	public static double clawSpeed = 1; //(Was 0.5)
 }
