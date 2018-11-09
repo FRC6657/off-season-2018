@@ -18,11 +18,11 @@ public class LadderWinch extends Subsystem {
 	}
 	
 	public void runWinch() {
-		winch.set(RobotMap.ladderWinchSpeed);
+		winch.set(-RobotMap.ladderWinchSpeed);
 	}
 	
 	public void reverseWinch() {
-		winch.set(-RobotMap.ladderWinchSpeed);
+		winch.set(RobotMap.ladderWinchSpeed);
 	}
 	
 	public void stop() {

@@ -24,7 +24,7 @@ public class AutoSwitchTimed extends CommandGroup{
 			int pos = DriverStation.getInstance().getLocation();
 			if((gameData.equals("L") && pos == 1) || (gameData.equals("R") && pos == 3)) {
 				addSequential(new LadderUpTimed(2)); //addSequential(new LadderUpTimedBad());
-				addSequential(new ClawOpenTimed(0.5));
+				addSequential(new ClawOpenTimed(1));
 			}
 		}
 	}

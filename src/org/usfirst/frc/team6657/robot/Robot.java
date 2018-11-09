@@ -38,8 +38,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Double> driveChooser = new SendableChooser<>();
 	
 	BaseDriveTimed baseDriveTimed;
-	AutoSwitch switchAuto;
-	BaseDriveStraight baseDriveStraight;
 	AutoSwitchTimed switchAutoTimed;
 
 	@Override
@@ -53,13 +51,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI(DriverStation.getInstance().getJoystickIsXbox(RobotMap.driveControllerID));
 		
 		baseDriveTimed = new BaseDriveTimed(5, 0.5);
-		switchAuto = new AutoSwitch();
-		baseDriveStraight = new BaseDriveStraight(20);
 		switchAutoTimed = new AutoSwitchTimed();
 		
 		chooser.addDefault("BaseDriveTimed", baseDriveTimed);
-		chooser.addObject("Conditional Switch Cube", switchAuto);
-		chooser.addObject("BaseDriveStraight", baseDriveStraight);
 		chooser.addObject("AutoSwitchTimed", switchAutoTimed);
 		SmartDashboard.putData("Auto mode", chooser);
 		
@@ -84,6 +78,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		driveTrain.reset();
+		autonomousCommand = null;
 	}
 
 	@Override
