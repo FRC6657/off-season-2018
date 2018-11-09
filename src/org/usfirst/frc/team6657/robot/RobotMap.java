@@ -6,7 +6,7 @@ package org.usfirst.frc.team6657.robot;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
+public class RobotMap { //Adds all the IDs and integers for the rest of the code
 	public static int motorFrontLeftID = 1;
 	public static int motorBackLeftID = 2;
 	public static int motorFrontRightID = 3;
