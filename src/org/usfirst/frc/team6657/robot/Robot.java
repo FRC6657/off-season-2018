@@ -57,9 +57,9 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("AutoSwitchTimed", switchAutoTimed);
 		SmartDashboard.putData("Auto mode", chooser);
 		//Adds speed options to the smart dashboard
-		driveChooser.addDefault("HYPER SPEED", 1.0d);
-		driveChooser.addDefault("60%", 0.6d);
-		driveChooser.addObject("50%", 0.5d);
+		driveChooser.addObject("HYPER SPEED", 1.0d);
+		driveChooser.addObject("60%", 0.6d);
+		driveChooser.addDefault("50%", 0.5d);
 		driveChooser.addObject("Grandma Speed", 0.3d);
 		SmartDashboard.putData("Motor Power", driveChooser);
 		
